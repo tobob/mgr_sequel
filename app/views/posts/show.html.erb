@@ -9,6 +9,28 @@
   <strong>Content:</strong>
   <%= @post.content %>
 </p>
+<% unless @post.comments.empty? %>
+  <% @post.comments.each do |comment| %>
+   Content:
+   <%= comment.content %>
+   <br/>
+  <% end %>
+<% else %>
+  There aren't any comments
+<% end %>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
+<hr/>
+
+<%= form_for(@comment, html: {method: "post"}, url: url_for(:controller => 'comments', :action => 'create')) do |f| %>
+    <%= f.hidden_field :post_id %>
+    <div class="field">
+      <%= f.label :content %><br>
+      <%= f.text_field :content %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
+
+<%= link_to 'Edit', controller: "posts", action: "edit", id: @post.id %> |
 <%= link_to 'Back', posts_path %>
