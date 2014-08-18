@@ -6,4 +6,8 @@ class Post < Sequel::Model
   def persisted?
     false
   end
+
+  def id
+    @values[:id]
+  end
 end

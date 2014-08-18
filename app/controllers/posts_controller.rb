@@ -10,6 +10,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @comment = Comment.new(post: @post)
   end
 
   # GET /posts/new
@@ -24,7 +25,6 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    p "wchodze tu"
     @post = Post.new(post_params)
 
     respond_to do |format|
@@ -65,11 +65,11 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post[params[:id]]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :content)
+      params.require(:post).permit(:title, :content, :comment_attributes)
     end
 end
