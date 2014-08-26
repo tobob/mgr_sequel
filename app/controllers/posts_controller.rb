@@ -1,16 +1,21 @@
+require 'will_paginate/sequel'
+require 'will_paginate/collection'
+require 'will_paginate/version'
+require 'sequel/extensions/pagination'
+
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    page = (params[:page] || 1).to_i
+    @posts = Post.order(Sequel.desc(:created_at)).paginate(page, 25)
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
-    @comment = Comment.new(post: @post)
   end
 
   # GET /posts/new
@@ -26,10 +31,9 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-
     respond_to do |format|
       if @post.save
-        format.html { render :show }
+        format.html { redirect_to post_url(id: @post.id) }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
@@ -43,7 +47,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.html { redirect_to post_url(id: @post.id), notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
@@ -66,6 +70,7 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post[params[:id]]
+      @comment = Comment.new(post: @post)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

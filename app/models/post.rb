@@ -1,4 +1,5 @@
 class Post < Sequel::Model
+  plugin :timestamps
   extend ActiveModel::Naming
   include ActiveModel::Conversion
   one_to_many :comments

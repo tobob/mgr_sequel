@@ -1,14 +1,11 @@
 Sequel.migration do
   change do
-    create_table(:animes) do
-      primary_key :id
-      column :title, "text"
-    end
-    
     create_table(:comments) do
       primary_key :id
       column :content, "text"
       column :post_id, "integer"
+      column :updated_at, "timestamp without time zone"
+      column :created_at, "timestamp without time zone"
     end
     
     create_table(:posts) do
@@ -28,6 +25,5 @@ Sequel.migration do
   change do
     self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20140812224255_create_posts.rb')"
     self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20140812224337_create_comments.rb')"
-    self << "INSERT INTO \"schema_migrations\" (\"filename\") VALUES ('20140816134659_create_animes.rb')"
   end
 end

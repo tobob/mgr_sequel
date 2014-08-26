@@ -27,7 +27,7 @@ gem 'therubyracer'
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
-gem 'boomerang-trample', git: 'https://github.com/tobob/trample.git'
+gem 'will_paginate'
 
 gem 'unicorn'
 # Use ActiveModel has_secure_password

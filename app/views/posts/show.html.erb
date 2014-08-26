@@ -13,6 +13,7 @@
   <% @post.comments.each do |comment| %>
    Content:
    <%= comment.content %>
+   <%= link_to 'Delete Comment', {:controller => "comments", :action => :destroy, :id => comment.id}, method: :delete %>
    <br/>
   <% end %>
 <% else %>
