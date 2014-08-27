@@ -18,7 +18,7 @@ worker_processes 4
 # If running the master process as root and the workers as an unprivileged
 # user, do this to switch euid/egid in the workers (also chowns logs):
 # user "unprivileged_user", "unprivileged_group"
-
+listen 8080
 # Help ensure your application will always spawn in the symlinked
 # "current" directory that Capistrano sets up.
 working_directory "/home/bob/mgr_Wojciech_Bozek/mgr_sequel" # available in 0.94.0+
